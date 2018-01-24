@@ -17,6 +17,8 @@ and open the template in the editor.
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="com.gmail.asboyo.latihan_hibernate.model.Provinsi"/>
         <mapping class="com.gmail.asboyo.latihan_hibernate.model.Kota"/>
+        <mapping class="com.gmail.asboyo.latihan_hibernate.model.Kecamatan"/>
+        <mapping class="com.gmail.asboyo.latihan_hibernate.model.Kelurahan"/>
     </session-factory>
 </hibernate-configuration> 
 
