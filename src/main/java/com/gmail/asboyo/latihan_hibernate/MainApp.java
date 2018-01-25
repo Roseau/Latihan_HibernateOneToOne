@@ -11,6 +11,7 @@ import com.gmail.asboyo.latihan_hibernate.model.Kota;
 import com.gmail.asboyo.latihan_hibernate.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -39,14 +40,21 @@ public class MainApp {
 //            System.out.println(kec.getKota().getProvinsi().getNama()+" || "+kec.getKota().getNama()+" || "+kec.getNama());
 //        }
         //list provinsi, kota, kecamatan, kelurahan
-        List<Kelurahan> listKeluh = getListKelurahan(session);
-        System.out.println(listKeluh.size());
-        for(Kelurahan keluh : listKeluh){
-            System.out.println(keluh.getKecamatan().getKota().getProvinsi().getNama()+" || "
-                    +keluh.getKecamatan().getKota().getNama()+" || "
-                    +keluh.getKecamatan().getNama()+" || "
-                    +keluh.getNama());
+//        List<Kelurahan> listKeluh = getListKelurahan(session);
+//        System.out.println(listKeluh.size());
+//        for(Kelurahan keluh : listKeluh){
+//            System.out.println(keluh.getKecamatan().getKota().getProvinsi().getNama()+" || "
+//                    +keluh.getKecamatan().getKota().getNama()+" || "
+//                    +keluh.getKecamatan().getNama()+" || "
+//                    +keluh.getNama());
+//        }
+        //mencoba HQL
+        List<Kota> listKota = getListKotaWithSpecificId(session, 1171);
+        //looping through the listKota
+        for(Kota kota : listKota){
+            System.out.println(kota.getNama()+" "+kota.getId());
         }
+        
         session.close();
         HibernateUtil.shutdown();
     }
@@ -65,4 +73,19 @@ public class MainApp {
     private static List<Kelurahan> getListKelurahan(Session session){
         return session.createQuery("Select k from Kelurahan k JOIN FETCH k.kecamatan").getResultList();
     }
+    //-------------HQL--------------
+    //Simple Query
+    public static List<Kota> getListKotaHQL(Session session){
+        String hql = "from Kota";
+        Query query = session.createQuery(hql);
+        return query.list();
+    }
+    //Query with some tweaks
+    public static List<Kota> getListKotaWithSpecificId(Session session, int id){
+        String hql = "from Kota k where k.id LIKE ?";
+        Query query = session.createQuery(hql);
+        query.setString(0,""+id);//deprecated method, ada yang lebih baik, tapi masih bisa digunakan
+        return query.getResultList();
+    }
+    
 }

@@ -15,6 +15,7 @@ and open the template in the editor.
         <!--<property name="format_sql">true</property>-->
         <!--<property name="use_sql_comments">true</property>-->
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <!--<Property name="hibernate.current_session_context_class">thread</Property>-->
         <mapping class="com.gmail.asboyo.latihan_hibernate.model.Provinsi"/>
         <mapping class="com.gmail.asboyo.latihan_hibernate.model.Kota"/>
         <mapping class="com.gmail.asboyo.latihan_hibernate.model.Kecamatan"/>
